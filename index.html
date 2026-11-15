@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>بوت الأذكار والقرآن والدعاء | Made By Spy</title>
+<meta name="description" content="بوت ديسكورد يبث القرآن الكريم على مدار الساعة، ويرسل الأذكار والأدعية في أوقاتها، ويدعو لمن تحب بأسمائهم. أضفه إلى سيرفرك الآن.">
+<meta name="theme-color" content="#0b1b2e">
+<meta name="author" content="Spy">
+<meta property="og:title" content="بوت الأذكار والقرآن والدعاء">
+<meta property="og:description" content="قرآن متواصل، أذكار في أوقاتها، وأدعية بأسماء من تحب، كل ذلك في بوت ديسكورد واحد.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cpath d='M20.5 3.6A11.4 11.4 0 1 0 23 23 9.4 9.4 0 0 1 20.5 3.6z' fill='%23FFB300'/%3E%3Cpath d='m23.2 6.4.9 2.3 2.4.2-1.8 1.6.6 2.4-2.1-1.3-2.1 1.3.6-2.4-1.8-1.6 2.4-.2z' fill='%23FFE082'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600&family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!--
+  بوت الأذكار والقرآن والدعاء — موقع التعريف
+  Made By Spy
+-->
+<a class="sr" href="#bridge">تخطّ إلى المحتوى</a>
+
+<div id="loader" role="status" aria-live="polite">
+  <div class="ld">
+    <div class="ld-lantern" aria-hidden="true"></div>
+    <p>نُضيء الفوانيس</p>
+    <div class="ld-bar"><i id="ldFill"></i></div>
+    <small>Made By Spy</small>
+  </div>
+</div>
+
+<div class="scene-fallback" aria-hidden="true"></div>
+<canvas id="scene" aria-label="فانوس لوتس ورقي يطفو على نهر ليلي مضيء" tabindex="-1"></canvas>
+
+<header class="bar" id="bar" dir="rtl">
+  <a class="brand" href="#launch" aria-label="بوت الأذكار، العودة إلى الرئيسية">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M20.5 3.6A11.4 11.4 0 1 0 23 23 9.4 9.4 0 0 1 20.5 3.6z" fill="#FFB300"/><path d="m23.2 6.4.9 2.3 2.4.2-1.8 1.6.6 2.4-2.1-1.3-2.1 1.3.6-2.4-1.8-1.6 2.4-.2z" fill="#FFE082"/></svg>
+    <div><b>بوت الأذكار</b><span>قرآن · أذكار · دعاء</span></div>
+  </a>
+  <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
+    <span class="nav-glow" aria-hidden="true"></span>
+    <a href="#launch" data-z="0">الرئيسية</a>
+    <a href="#bridge" data-z="1">عن البوت</a>
+    <a href="#market" data-z="2">المزايا</a>
+    <a href="#pier" data-z="3">طريقة البدء</a>
+    <a href="#lanterns" data-z="4">التحكم</a>
+    <a href="#wish" data-z="5">الأسئلة</a>
+  </nav>
+  <button class="btn ghost sm az-sm" type="button" data-azkar>اقرأ الأذكار</button>
+  <a class="btn ghost sm donate-sm" href="#" data-donate>تبرّع</a>
+  <a class="btn warm sm invite-sm" href="#" data-invite>أضف البوت</a>
+  <div class="tools">
+    <button class="tool trayBtn" id="trayBtn" type="button" aria-pressed="true" aria-controls="tray" aria-label="إخفاء اختيارات الفوانيس (L)" title="اختيارات الفوانيس (L)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v2.2"/><rect x="8.6" y="5.7" width="6.8" height="1.6" rx=".6"/><path d="M7.4 9.2c0-1.1.9-1.9 2-1.9h5.2c1.1 0 2 .8 2 1.9v6.1c0 1.1-.9 1.9-2 1.9H9.4c-1.1 0-2-.8-2-1.9z"/><path d="M12 7.3v9.9M9.6 7.6c-1 2.8-1 6.6 0 9.3M14.4 7.6c1 2.8 1 6.6 0 9.3" class="rib"/><rect x="8.6" y="17.2" width="6.8" height="1.6" rx=".6"/><path d="M12 18.8v2.2"/></svg></button>
+    <button class="tool snd pending" id="sndBtn" type="button" aria-label="الصوت" title="الصوت">
+      <svg viewBox="0 0 22 16" aria-hidden="true"><path d="M2 6h3l4-3.5v11L5 10H2z" fill="currentColor" stroke="none"/><path class="wave" d="M12 5.2a3.6 3.6 0 0 1 0 5.6"/><path class="wave" d="M14.6 2.8a7 7 0 0 1 0 10.4"/><path class="slash" d="M3 1.5 19 14.5" stroke-width="1.6"/></svg>
+    </button>
+    <button class="tool fs" id="fsBtn" type="button" aria-label="ملء الشاشة" title="ملء الشاشة">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 6.5V2h4.5M11.5 2H16v4.5M16 11.5V16h-4.5M6.5 16H2v-4.5"/></svg>
+    </button>
+    <button class="tool" id="shotBtn" type="button" aria-label="حفظ لقطة شاشة" title="لقطة شاشة">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5.5h3l1.5-2h5l1.5 2h3v9H2z"/><circle cx="9" cy="10" r="2.8"/></svg>
+    </button>
+    <button class="tool burger" id="burger" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="drawer"><i></i></button>
+  </div>
+</header>
+
+<nav class="drawer" id="drawer" aria-label="قائمة الجوال">
+  <a href="#launch"><small>01</small>الرئيسية</a>
+  <a href="#bridge"><small>02</small>عن البوت</a>
+  <a href="#market"><small>03</small>المزايا</a>
+  <a href="#pier"><small>04</small>طريقة البدء</a>
+  <a href="#lanterns"><small>05</small>التحكم الكامل</a>
+  <a href="#wish"><small>06</small>الأسئلة الشائعة</a>
+  <a class="btn warm" href="#" data-invite>أضف البوت إلى سيرفرك</a>
+  <button class="btn ghost" type="button" data-azkar>اقرأ الأذكار</button>
+  <a class="btn ghost" href="#" data-donate>تبرّع للبوت</a>
+</nav>
+
+<aside class="route" id="route" aria-label="مسار النهر">
+  <a class="rt" href="#launch" data-z="0"><span>الرئيسية</span><i></i></a>
+  <a class="rt" href="#bridge" data-z="1"><span>عن البوت</span><i></i></a>
+  <a class="rt" href="#market" data-z="2"><span>المزايا</span><i></i></a>
+  <a class="rt" href="#pier" data-z="3"><span>طريقة البدء</span><i></i></a>
+  <a class="rt" href="#lanterns" data-z="4"><span>التحكم</span><i></i></a>
+  <a class="rt" href="#wish" data-z="5"><span>الأسئلة</span><i></i></a>
+</aside>
+
+<main id="content">
+
+  <!-- 01 · الرئيسية -->
+  <section class="zone hero" id="launch" data-zone="0">
+    <div class="hero-copy" dir="rtl">
+      <p class="eyebrow">بوت ديسكورد · قرآن وأذكار ودعاء</p>
+      <h1>اجعل سيرفرك <em>عامرًا بالذكر.</em></h1>
+      <p class="lede">بوت واحد يبث القرآن الكريم على مدار الساعة، ويرسل الأذكار والأدعية في أوقاتها، ويدعو لمن تحب بأسمائهم، وكل ذلك من لوحة تحكم بسيطة.</p>
+      <div class="cta">
+        <a class="btn warm big" href="#" data-invite>أضف البوت إلى سيرفرك
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></a>
+        <button class="btn ghost" type="button" data-azkar>اقرأ الأذكار
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4.2C6.6 3.2 4.6 3 2.5 3.4v8.4c2.1-.4 4.1-.2 5.5.8 1.4-1 3.4-1.2 5.5-.8V3.4C11.4 3 9.4 3.2 8 4.2zM8 4.2v8.4"/></svg></button>
+        <button class="btn ghost" type="button" data-free="1">تجوّل حر
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v6M5 8h6"/></svg></button>
+      </div>
+      <p class="free-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.6S2.2 10 2.2 6.1C2.2 4.2 3.6 3 5.2 3c1.2 0 2.2.7 2.8 1.7C8.6 3.7 9.6 3 10.8 3c1.6 0 3 1.2 3 3.1 0 3.9-5.8 7.5-5.8 7.5z" fill="currentColor" stroke="none"/></svg>مجاني بالكامل، بلا اشتراكات ولا ميزات مدفوعة</p>
+    </div>
+  </section>
+
+  <!-- 02 · عن البوت -->
+  <section class="zone left" id="bridge" data-zone="1">
+    <div class="plate reveal">
+      <p class="tag">02 · عن البوت</p>
+      <h2>بوت واحد، <em>يغنيك عن بوتات كثيرة.</em></h2>
+      <p>بوت ديسكورد عام صُمّم ليجمع ما يحتاجه كل سيرفر إسلامي في مكان واحد: قرآن كريم متواصل في روم صوتي، وأذكار موزّعة على أقسام، وأدعية شخصية تحمل أسماء من تحب، مع تذكير بمواقيت الصلاة.</p>
+      <p>كل شيء يُدار من أمر واحد بسيط <code>/panel</code> بواجهة هادئة وحديثة، وتُحفظ إعداداتك تلقائيًا فلا تضيع بعد أي إعادة تشغيل.</p>
+      <div class="tags" aria-label="البوت بالأرقام">
+        <div class="stat"><b data-count="24">24</b><small>ساعة بثّ قرآن يوميًا</small></div>
+        <div class="stat"><b data-count="7">7</b><small>أيام في الأسبوع بلا انقطاع</small></div>
+        <div class="stat"><b data-count="5">5</b><small>صلوات يُذكَّر بها</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · المزايا -->
+  <section class="zone right" id="market" data-zone="2">
+    <div class="plate market-plate reveal">
+      <div class="mk-head">
+        <div>
+          <p class="tag">03 · المزايا</p>
+          <h2>مزايا <em>تستحق الإضاءة.</em></h2>
+          <p>ست مزايا أساسية في البوت. أضئ أي فانوس ثم افتحه لتقرأ تفاصيله.</p>
+        </div>
+        <div class="rail-nav">
+          <button class="arrow" id="railPrev" type="button" aria-label="الميزة السابقة"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+          <span class="count" id="railCount" aria-live="polite"><b>01</b> / 06</span>
+          <button class="arrow" id="railNext" type="button" aria-label="الميزة التالية"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
+        </div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" aria-label="مزايا البوت، استخدم الأسهم للتنقل">
+        <svg class="string" aria-hidden="true" preserveAspectRatio="none"><path id="railString" d="M0 2 Q 50 20 100 2"/></svg>
+        <div class="scroller" id="scroller">
+        <div class="lane" id="lane">
+          <div class="card" role="button" tabindex="0" data-title="القرآن الكريم 24/7" data-meta="المزية 01 · الصوتيات" data-text="يبث البوت القرآن الكريم في روم صوتي مخصص على مدار الساعة وطوال أيام الأسبوع، دون أن تحتاج إلى تشغيله في كل مرة. وإذا انقطع الاتصال لأي سبب يعيد البوت الدخول والتشغيل تلقائيًا، فيبقى سيرفرك عامرًا بالتلاوة ليلًا ونهارًا لكل من يدخل الروم.">
+            <div class="ph"><img src="assets/img/features/quran.svg" alt="كتاب مفتوح تحته هلال" draggable="false" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="cap"><b>القرآن الكريم 24/7</b><small>بث صوتي متواصل</small></div>
+          </div>
+          <div class="card" role="button" tabindex="0" data-title="أذكار بأقسام كثيرة" data-meta="المزية 02 · الأذكار" data-text="مكتبة كبيرة من الأذكار مقسّمة إلى أقسام، مثل أذكار الصباح والمساء والنوم وما بعد الصلاة وغيرها. يرسلها البوت تلقائيًا في الروم النصي المخصص على فواصل زمنية تحددها أنت، ويمكنك تشغيل أي قسم أو إيقافه من لوحة التحكم بحسب ما يناسب مجتمعك.">
+            <div class="ph"><img src="assets/img/features/azkar.svg" alt="مسبحة ذهبية" draggable="false" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="cap"><b>أذكار بأقسام كثيرة</b><small>تُرسل في أوقاتها</small></div>
+          </div>
+          <div class="card" role="button" tabindex="0" data-title="دعاء بأسماء من تحب" data-meta="المزية 03 · الدعاء" data-text="أضف أسماء من فقدتهم وأسماء من تحب من الأحياء، وسيُدرجها البوت تلقائيًا داخل الأدعية بصياغة تناسب كل فئة، فيصل الدعاء إلى أسمائهم مع كل رسالة. هكذا تجتمع أسماء أحبّتك مع دعاء يقرؤه كل أعضاء السيرفر.">
+            <div class="ph"><img src="assets/img/features/dua.svg" alt="نجمة ثمانية وبطاقات أسماء" draggable="false" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="cap"><b>دعاء بأسماء من تحب</b><small>للمتوفين والأحياء</small></div>
+          </div>
+          <div class="card" role="button" tabindex="0" data-title="تذكير بالصلوات" data-meta="المزية 04 · التنبيهات" data-text="يرسل البوت تذكيرًا عند دخول وقت الصلاة حتى لا ينشغل الأعضاء عنها. ويمكنك تشغيل التذكير أو إيقافه من اللوحة، واختيار أن يكون التنبيه بمنشن للجميع أو بدون منشن لتجنّب الإزعاج.">
+            <div class="ph"><img src="assets/img/features/prayer.svg" alt="مسجد عند شروق القمر" draggable="false" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="cap"><b>تذكير بالصلوات</b><small>تنبيه عند كل صلاة</small></div>
+          </div>
+          <div class="card" role="button" tabindex="0" data-title="لوحة تحكم ⁦/panel⁩" data-meta="المزية 05 · التحكم" data-text="بدل حفظ عشرات الأوامر، اكتب ⁦/panel⁩ فقط وستفتح لك لوحة بواجهة حديثة (Components V2) تتحكم منها في الأقسام وأسماء الدعاء والفاصل الزمني والمنشن والتذكيرات. التصميم هادئ ومرتب بلا زخرفة زائدة، وكل زر واضح الغرض.">
+            <div class="ph"><img src="assets/img/features/panel.svg" alt="نافذة لوحة تحكم بمفاتيح تشغيل" draggable="false" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="cap"><b>لوحة تحكم ⁦/panel⁩</b><small>كل شيء بأمر واحد</small></div>
+          </div>
+          <div class="card" role="button" tabindex="0" data-title="ثبات وحماية من الأعطال" data-meta="المزية 06 · الاستقرار" data-text="صُمّم البوت ليبقى حيًّا: إعادة اتصال تلقائية للبث الصوتي، وحماية من الأخطاء غير المتوقعة حتى لا يتوقف فجأة، وحفظ كل إعداداتك في قاعدة بيانات محلية فلا تفقد شيئًا بعد إعادة التشغيل. تضيفه مرة واحدة وتطمئن.">
+            <div class="ph"><img src="assets/img/features/stable.svg" alt="درع عليه علامة صح" draggable="false" loading="lazy" onerror="this.style.display='none'"></div>
+            <div class="cap"><b>ثبات وحماية من الأعطال</b><small>يعمل دون توقف</small></div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="rail-foot">
+        <div class="lights" id="railLights" aria-label="اختر فانوسًا"></div>
+        <p class="rail-hint">اضغط لإضاءة الفانوس، واضغط مرة أخرى لقراءة التفاصيل.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · طريقة البدء -->
+  <section class="zone left" id="pier" data-zone="3">
+    <div class="plate pier-plate reveal">
+      <p class="tag">04 · طريقة البدء</p>
+      <h2>ابدأ في <em>خمس خطوات.</em></h2>
+      <p>من الإضافة إلى أول ذكر في دقائق معدودة. افتح أي ضلع لتقرأ الخطوة.</p>
+      <div class="ribs" id="ribs">
+        <div class="rib open" role="button" tabindex="0" aria-expanded="true">
+          <span class="glowline"></span><span class="num">01</span><span class="vt">الإضافة</span>
+          <div class="body"><h3>أضف البوت</h3><p>اضغط زر «أضف البوت إلى سيرفرك»، اختر السيرفر من القائمة ووافق على الصلاحيات. خطوة تستغرق ثوانيَ معدودة.</p><div class="chips"><span>رابط واحد</span><span>اختيار السيرفر</span><span>موافقة</span></div></div>
+        </div>
+        <div class="rib" role="button" tabindex="0" aria-expanded="false">
+          <span class="glowline"></span><span class="num">02</span><span class="vt">الصلاحيات</span>
+          <div class="body"><h3>امنحه ما يحتاجه</h3><p>يحتاج البوت رؤية الرومات وإرسال الرسائل، والاتصال والتحدث في الروم الصوتي ليبثّ القرآن الكريم.</p><div class="chips"><span>الاتصال</span><span>التحدث</span><span>إرسال الرسائل</span></div></div>
+        </div>
+        <div class="rib" role="button" tabindex="0" aria-expanded="false">
+          <span class="glowline"></span><span class="num">03</span><span class="vt">اللوحة</span>
+          <div class="body"><h3>افتح لوحة التحكم</h3><p>اكتب <code>/panel</code> وستظهر لك لوحة حديثة بنظام Components V2، تتحكم منها في كل شيء بضغطات بسيطة.</p><div class="chips"><span><code>/panel</code></span><span>Components V2</span><span>واجهة هادئة</span></div></div>
+        </div>
+        <div class="rib" role="button" tabindex="0" aria-expanded="false">
+          <span class="glowline"></span><span class="num">04</span><span class="vt">التفعيل</span>
+          <div class="body"><h3>فعّل الأقسام</h3><p>شغّل أقسام الأذكار التي تريدها وأوقف الباقي، وحدّد الفاصل بين الرسائل، واختر المنشن أو بدونه.</p><div class="chips"><span>الأقسام</span><span>الفاصل الزمني</span><span>المنشن</span></div></div>
+        </div>
+        <div class="rib" role="button" tabindex="0" aria-expanded="false">
+          <span class="glowline"></span><span class="num">05</span><span class="vt">الدعاء</span>
+          <div class="body"><h3>أضف أسماء من تحب</h3><p>سجّل أسماء المتوفين والأحياء، وسيُدرجها البوت تلقائيًا داخل الأدعية لتُذكر في كل دعاء.</p><div class="chips"><span>للمتوفين</span><span>للأحياء</span><span>تلقائيًا</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · التحكم -->
+  <section class="zone right" id="lanterns" data-zone="4">
+    <div class="plate price-plate reveal">
+      <p class="tag">05 · التحكم الكامل</p>
+      <h2>كل شيء <em>من لوحة واحدة.</em></h2>
+      <p>ثلاث مجموعات من الإعدادات تجدها داخل <code>/panel</code>. أضئ فانوسًا لترى ما بداخله.</p>
+      <div class="tiers" id="tiers" role="radiogroup" aria-label="مجموعات الإعدادات">
+        <div class="tier" role="radio" tabindex="0" aria-checked="false" data-i="0" data-price="أقسام الأذكار" data-weeks="شغّل ما تريد وأوقف ما لا تريد" data-items="قسم مستقل لكل نوع من الأذكار|تشغيل وإيقاف بضغطة واحدة|اختياراتك تُحفظ تلقائيًا|تناسب طابع مجتمعك" data-color="#FFE082" style="--c:#FFE082">
+          <span class="cord" style="height:30px"></span><span class="lamp" style="width:78px;height:92px"><b>الأقسام</b></span><span class="tassel"></span>
+        </div>
+        <div class="tier on" role="radio" tabindex="0" aria-checked="true" data-i="1" data-price="أسماء الدعاء" data-weeks="للمتوفين وللأحياء" data-items="إضافة الأسماء وحذفها بسهولة|فصل بين المتوفين والأحياء|تُدرج تلقائيًا داخل الأدعية|صياغة دعاء تناسب كل فئة" data-color="#FFB300" style="--c:#FFB300">
+          <span class="cord" style="height:52px"></span><span class="lamp" style="width:96px;height:112px"><b>الأسماء</b></span><span class="tassel"></span>
+        </div>
+        <div class="tier" role="radio" tabindex="0" aria-checked="false" data-i="2" data-price="التوقيت والتنبيه" data-weeks="تحكّم في إيقاع الرسائل" data-items="فاصل زمني قابل للتعديل|منشن للجميع أو بدون منشن|تذكير بمواقيت الصلاة|تشغيل التنبيهات وإيقافها" data-color="#E2553F" style="--c:#E2553F">
+          <span class="cord" style="height:18px"></span><span class="lamp" style="width:86px;height:102px"><b>التوقيت</b></span><span class="tassel"></span>
+        </div>
+      </div>
+      <div class="tier-detail" id="tierDetail" aria-live="polite">
+        <span class="pr"><span id="tierPrice">أسماء الدعاء</span><small>في لوحة التحكم</small></span>
+        <span class="wk" id="tierWeeks">للمتوفين وللأحياء</span>
+        <ul id="tierItems"><li>إضافة الأسماء وحذفها بسهولة</li><li>فصل بين المتوفين والأحياء</li><li>تُدرج تلقائيًا داخل الأدعية</li><li>صياغة دعاء تناسب كل فئة</li></ul>
+        <a class="btn ghost" href="#" data-invite>أضف البوت إلى سيرفرك</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · ابدأ الآن + الأسئلة -->
+  <section class="zone left" id="wish" data-zone="5">
+    <div class="plate wish-plate reveal">
+      <p class="tag">06 · ابدأ الآن</p>
+      <h2>أطلق فانوسك <em>في سيرفرك.</em></h2>
+      <p>جاهز؟ أضف البوت الآن ودع سيرفرك يتلألأ بالذكر.</p>
+      <div class="invite-row">
+        <a class="btn warm big" href="#" data-invite>أضف البوت إلى سيرفرك
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></a>
+      </div>
+      <div class="donate" id="donate">
+        <span class="heart"><svg width="22" height="22" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.6S2.2 10 2.2 6.1C2.2 4.2 3.6 3 5.2 3c1.2 0 2.2.7 2.8 1.7C8.6 3.7 9.6 3 10.8 3c1.6 0 3 1.2 3 3.1 0 3.9-5.8 7.5-5.8 7.5z" fill="currentColor" stroke="none"/></svg></span>
+        <h3>البوت مجاني بالكامل</h3>
+        <p>لا اشتراكات ولا ميزات مدفوعة. التبرّع ليس إجباريًا أبدًا، وهو فقط يساعد في تطوير البوت وفي مساعدة حالات الإحسان.</p>
+        <a class="btn ghost" href="#" data-donate><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.6S2.2 10 2.2 6.1C2.2 4.2 3.6 3 5.2 3c1.2 0 2.2.7 2.8 1.7C8.6 3.7 9.6 3 10.8 3c1.6 0 3 1.2 3 3.1 0 3.9-5.8 7.5-5.8 7.5z" fill="currentColor" stroke="none"/></svg>تبرّع الآن</a>
+      </div>
+      <div class="faq" id="faq">
+        <details><summary>هل أحتاج صلاحيات خاصة لإضافة البوت؟</summary><p>لإضافة أي بوت إلى سيرفر تحتاج صلاحية «إدارة السيرفر». بعدها يطلب البوت الصلاحيات اللازمة لعمله فقط: رؤية الرومات، إرسال الرسائل، والاتصال والتحدث في الروم الصوتي.</p></details>
+        <details><summary>هل يعمل البث طوال اليوم فعلًا؟</summary><p>نعم، فبث القرآن مصمّم ليعمل 24 ساعة في اليوم و7 أيام في الأسبوع، مع إعادة اتصال تلقائية إذا انقطع الاتصال لأي سبب.</p></details>
+        <details><summary>هل أستطيع إيقاف بعض الأقسام؟</summary><p>بالتأكيد. من لوحة <code>/panel</code> تشغّل أي قسم من الأذكار أو توقفه، وتغيّر الفاصل الزمني، وتختار أن يكون التنبيه بمنشن أو بدونه.</p></details>
+        <details><summary>هل تضيع إعداداتي إذا أُعيد تشغيل البوت؟</summary><p>لا. تُحفظ كل الإعدادات وأسماء الدعاء في قاعدة بيانات، فتبقى كما هي بعد أي إعادة تشغيل.</p></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span class="fb">Made By <b>Spy</b></span>
+  <span class="copy" dir="rtl">© 2026 Spy · جميع الحقوق محفوظة</span>
+</footer>
+
+<div class="dock" id="dock" role="region" aria-label="عناصر التحكم بالمشهد">
+  <span class="hint" id="hint">مرّر للأسفل لتنساب مع النهر · اضغط على لوحات الأذكار العائمة لتقرأها</span>
+  <button class="x" id="dockClose" type="button" aria-label="إخفاء التحكم"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg></button>
+</div>
+<div class="tray" id="tray" role="radiogroup" aria-label="اختر فانوسك">
+    <button class="ln on" type="button" role="radio" aria-checked="true" data-d="0" title="كلاسيكي (1)"><span class="key" aria-hidden="true">1</span><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="26.4" rx="9" ry="2" class="pad"/><path d="M14.4 4.6h3.2l.7 1.8c1.7.5 3 1.8 3 3.5v1c1.4 1.6 2.4 3.6 2.4 5.5 0 1.8-.9 3.3-2.3 4.4l.6 2.2H11.4l.6-2.2c-1.4-1.1-2.3-2.6-2.3-4.4 0-1.9 1-3.9 2.4-5.5v-1c0-1.7 1.3-3 3-3.5z"/><rect x="11" y="22.4" width="10" height="1.8" rx=".7" class="rim"/></svg><span class="nm">كلاسيكي</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><span class="sr">، السرعة 3 من 5</span></button>
+    <button class="ln" type="button" role="radio" aria-checked="false" data-d="1" title="مغربي (2)"><span class="key" aria-hidden="true">2</span><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="26.4" rx="8" ry="2" class="pad"/><path d="M16 2.8c1.1 2 2 3 3.2 3.6v1.6c1.9 1.5 3.1 3.6 3.1 6.1 0 2.5-1 4.3-2.7 5.7l.8 2.5h-8.8l.8-2.5c-1.7-1.4-2.7-3.2-2.7-5.7 0-2.5 1.2-4.6 3.1-6.1V6.4C13.9 5.8 14.9 4.8 16 2.8z"/><rect x="11.6" y="22.4" width="8.8" height="1.8" rx=".7" class="rim"/></svg><span class="nm">مغربي</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><span class="sr">، السرعة 3 من 5</span></button>
+    <button class="ln" type="button" role="radio" aria-checked="false" data-d="2" title="نجمة (3)"><span class="key" aria-hidden="true">3</span><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="23.6" rx="9" ry="2.2" class="paper"/><polygon points="16.0,11.2 17.3,16.5 23.3,12.7 19.4,17.5 27.9,16.6 20.2,19.0 27.9,21.4 19.4,20.5 23.3,25.3 17.3,21.5 16.0,26.8 14.7,21.5 8.7,25.3 12.6,20.5 4.1,21.4 11.8,19.0 4.1,16.6 12.6,17.5 8.7,12.7 14.7,16.5" opacity=".75"/><polygon points="16.0,13.2 17.0,16.0 20.9,14.4 18.4,16.9 23.0,17.5 18.4,18.1 20.9,20.6 17.0,19.0 16.0,21.8 15.0,19.0 11.1,20.6 13.6,18.1 9.0,17.5 13.6,16.9 11.1,14.4 15.0,16.0"/></svg><span class="nm">نجمة</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><span class="sr">، السرعة 4 من 5</span></button>
+    <button class="ln" type="button" role="radio" aria-checked="false" data-d="3" title="قبة (4)"><span class="key" aria-hidden="true">4</span><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="26.4" rx="10" ry="2" class="pad"/><path d="M7.5 21a8.5 8.5 0 0 1 17 0z"/><rect x="6.5" y="21.2" width="19" height="2.4" rx=".8" class="rim"/><path d="M16 12.5V7" class="rib"/><circle cx="16" cy="6" r="1.4"/></svg><span class="nm">قبة</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><span class="sr">، السرعة 3 من 5</span></button>
+    <button class="ln" type="button" role="radio" aria-checked="false" data-d="4" title="مشربية (5)"><span class="key" aria-hidden="true">5</span><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5.5" y="21.5" width="21" height="3.6" rx="1" class="paper"/><path d="M10.6 8.5h10.8l2 13H8.6z"/><rect x="10" y="7" width="12" height="2.2" rx=".8" class="rim"/><path d="M16 9v12.4" class="rib"/></svg><span class="nm">مشربية</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span><span class="sr">، السرعة 2 من 5</span></button>
+    <button class="ln gold" type="button" role="radio" aria-checked="false" data-d="5" title="المهرجان الذهبي (6)"><span class="key" aria-hidden="true">6</span><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="26.4" rx="13" ry="2.6" class="pad"/><path d="M14.6 3.6h2.8l.6 1.6c1.5.5 2.6 1.6 2.6 3.1v.9c1.2 1.4 2.1 3.2 2.1 4.8 0 1.6-.8 2.9-2 3.9l.5 1.9h-9.6l.5-1.9c-1.2-1-2-2.3-2-3.9 0-1.6.9-3.4 2.1-4.8v-.9c0-1.5 1.1-2.6 2.6-3.1z"/><circle cx="5.2" cy="20.5" r="2.3" opacity=".8"/><circle cx="26.8" cy="20.5" r="2.3" opacity=".8"/><circle cx="9.6" cy="15.6" r="1.7" opacity=".6"/><circle cx="22.4" cy="15.6" r="1.7" opacity=".6"/></svg><span class="nm">ذهبي</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></span><em class="fast">سريع</em><span class="sr">، السرعة 5 من 5</span></button>
+    <button class="ln gold chain" type="button" role="radio" aria-checked="false" data-d="6" title="سلسلة (7)"><span class="key" aria-hidden="true">7</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 22.5c4 1.6 7.4 1.6 10 0M19 22.5c3.4 1.6 7 1.6 10 0" class="rope"/><ellipse cx="7" cy="22.4" rx="4.6" ry="1.4" class="pad"/><path d="M7 15.5c1.4 2.2 1.6 4.4 0 6.6-1.6-2.2-1.4-4.4 0-6.6z"/><path d="M3.6 18.4c2.2.6 3.2 2 3.4 3.8-2.2-.3-3.3-1.6-3.4-3.8zM10.4 18.4c-2.2.6-3.2 2-3.4 3.8 2.2-.3 3.3-1.6 3.4-3.8z" opacity=".75"/><ellipse cx="16" cy="22.6" rx="3.6" ry="1.2" class="pad"/><ellipse cx="16" cy="20.6" rx="2.6" ry="1.8" opacity=".8"/><ellipse cx="25" cy="22.6" rx="3.4" ry="1.1" class="paper"/><path d="M23 17.4h4l.7 5h-5.4z"/></svg><span class="nm">سلسلة</span><span class="pips" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><span class="sr">، السرعة 4 من 5، تسحب الفوانيس الخمسة الأخرى</span></button>
+</div>
+<button class="switch freeBtn" id="freeSwitch" type="button" role="switch" aria-checked="false"><span class="knob"></span><span>تجوّل حر</span></button>
+<div class="speedo" id="speedo" aria-hidden="true"><svg viewBox="0 0 32 20"><path class="trk" d="M3 17a13 13 0 0 1 26 0"/><path class="val" id="spArc" d="M3 17a13 13 0 0 1 26 0" pathLength="100" stroke-dasharray="0 100"/><line class="ndl" id="spNdl" x1="16" y1="17" x2="6" y2="17"/><circle cx="16" cy="17" r="1.6"/></svg><b id="spNum">0.0</b><small>كم/س</small></div>
+<button class="help" id="helpBtn" type="button" aria-label="إظهار التحكم">?</button>
+<div class="joy" id="joy" aria-hidden="true"><i></i></div>
+<button class="wish-btn" id="wishBtn" type="button" aria-label="أطلق فانوسًا إلى السماء"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 6.5c0-1.4 2-2.5 4.5-2.5s4.5 1.1 4.5 2.5L15.4 16H8.6z"/><path d="M8.6 16h6.8M12 16v2.6M10.5 20.5c.4-.9.9-1.4 1.5-1.4s1.1.5 1.5 1.4" class="fl"/></svg></button>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <div class="lb-card">
+    <button class="lb-x" id="lbClose" type="button" aria-label="إغلاق"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg></button>
+    <div class="ph"><img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" draggable="false"></div>
+    <div class="tx"><span class="meta" id="lbMeta"></span><h3 id="lbTitle"></h3><p id="lbText"></p><a class="btn warm" href="#" data-invite id="lbCta" style="align-self:flex-start;margin-top:8px">أضف البوت إلى سيرفرك</a></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span id="toastText"></span></div>
+
+<script src="config.js"></script>
+<script src="assets/js/vendor/three.min.js"></script>
+<script src="assets/js/vendor/three-addons.js"></script>
+<script src="assets/js/azkar-data.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/azkar.js"></script>
+</body>
+</html>
