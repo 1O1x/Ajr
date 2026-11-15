@@ -613,3 +613,9 @@ code{font-family:var(--ui);font-size:.88em;direction:ltr;unicode-bidi:isolate;di
 kbd{direction:ltr}
 
 #scene.board{cursor:pointer}
+
+/* User-controlled sound level */
+.sound-volume{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line,rgba(255,255,255,.12));border-radius:12px;background:rgba(10,15,28,.72);color:var(--muted,#aab4c8);font-size:11px;white-space:nowrap}
+.sound-volume input[type=range]{width:82px;accent-color:#5b9dff;cursor:pointer}
+.sound-volume span{min-width:28px;text-align:center;color:var(--text,#fff);font-variant-numeric:tabular-nums}
+@media(max-width:600px){.sound-volume{gap:5px;padding:6px 7px}.sound-volume input[type=range]{width:58px}.sound-volume label{display:none}}

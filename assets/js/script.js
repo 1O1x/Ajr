@@ -46,9 +46,9 @@ function toast(msg,bad){
 // Everything starts on the visitor's first tap, because browsers refuse sound before that.
 // ---------------------------------------------------------------
 const Sound=(function(){
-  const btn=$('#sndBtn');
+  const btn=$('#sndBtn'),volSlider=$('#volumeSlider'),volValue=$('#volumeValue');
   const FILE='audio/azkar.mp3',TRACK_VOL=.6,LEVEL=.9;
-  let wanted=store.get('spy-azkar-sound')!=='off';   // on unless the visitor turned it off
+  let volume=Math.max(0,Math.min(1,Number(store.get('spy-azkar-volume')??.25)));\n  let wanted=store.get('spy-azkar-sound')!=='off';   // on unless the visitor turned it off
   let ctx=null,master=null,sfx=null,amb=null,noiseBuf=null,playing=false,built=false,nextCricket=0,nextDrop=0,fadeId=0,hasTrack=true;
   const audio=new Audio();audio.loop=true;audio.preload='auto';audio.volume=0;audio.src=FILE;
   audio.addEventListener('error',()=>{hasTrack=false;});   // no file yet: the river alone is enough
@@ -131,10 +131,10 @@ const Sound=(function(){
     ctx.resume().then(()=>{
       if(!wanted||playing) return;
       playing=true;
-      const t=ctx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(LEVEL,t+2.5);
+      const t=ctx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(LEVEL*volume,t+2.5);
       if(!built){built=true;startAmbience();}
       nextCricket=t+2;nextDrop=t+3;
-      if(hasTrack){const p=audio.play();if(p&&p.then) p.then(()=>fadeTrack(TRACK_VOL,2000)).catch(()=>{});}
+      if(hasTrack){const p=audio.play();if(p&&p.then) p.then(()=>fadeTrack(TRACK_VOL*volume,2000)).catch(()=>{});}
       paint();
     }).catch(()=>{});
   }
