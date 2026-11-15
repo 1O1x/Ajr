@@ -46,14 +46,40 @@ function toast(msg,bad){
 // Everything starts on the visitor's first tap, because browsers refuse sound before that.
 // ---------------------------------------------------------------
 const Sound=(function(){
-  const btn=$('#sndBtn'),volSlider=$('#volumeSlider'),volValue=$('#volumeValue');
+  const btn=$('#sndBtn');
   const FILE='audio/azkar.mp3',TRACK_VOL=.6,LEVEL=.9;
-  let volume=Math.max(0,Math.min(1,Number(store.get('spy-azkar-volume')??.25)));\n  let wanted=store.get('spy-azkar-sound')!=='off';   // on unless the visitor turned it off
+  const volumeSlider=$('#volumeSlider'),volumeValue=$('#volumeValue');
+  let volume=Number(store.get('spy-azkar-volume'));
+  if(!Number.isFinite(volume)) volume=65;
+  volume=Math.max(0,Math.min(100,volume))/100;
+  let wanted=store.get('spy-azkar-sound')!=='off';   // on unless the visitor turned it off
   let ctx=null,master=null,sfx=null,amb=null,noiseBuf=null,playing=false,built=false,nextCricket=0,nextDrop=0,fadeId=0,hasTrack=true;
   const audio=new Audio();audio.loop=true;audio.preload='auto';audio.volume=0;audio.src=FILE;
   audio.addEventListener('error',()=>{hasTrack=false;});   // no file yet: the river alone is enough
   const rand=(a,b)=>a+Math.random()*(b-a);
 
+  function paintVolume(){
+    if(!volumeSlider) return;
+    const pct=Math.round(volume*100);
+    volumeSlider.value=pct;
+    volumeSlider.style.setProperty('--volume-fill',pct+'%');
+    volumeSlider.setAttribute('aria-valuetext',pct+'%');
+    if(volumeValue) volumeValue.textContent=pct+'%';
+  }
+  function setVolume(value){
+    volume=Math.max(0,Math.min(1,Number(value)/100));
+    store.set('spy-azkar-volume',String(Math.round(volume*100)));
+    paintVolume();
+    if(master&&ctx&&playing){
+      const t=ctx.currentTime;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setTargetAtTime(LEVEL*volume,t,.045);
+    }
+    if(!fadeId || audio.paused) audio.volume=TRACK_VOL*volume;
+  }
+  if(volumeSlider){
+    volumeSlider.addEventListener('input',()=>setVolume(volumeSlider.value));
+  }
   function paint(){
     btn.classList.toggle('off',!wanted);
     btn.classList.toggle('on',playing);
@@ -151,7 +177,7 @@ const Sound=(function(){
     else{wanted=true;store.set('spy-azkar-sound','on');start();}
     paint();
   });
-  paint();
+  paint();paintVolume();audio.volume=TRACK_VOL*volume;
 
   // ---- sounds the interface can make ----
   function plop(f,g){   // a drop of water; the louder ones (a click on the river) get a splash and a second drop

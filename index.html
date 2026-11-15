@@ -57,10 +57,12 @@
     <button class="tool snd pending" id="sndBtn" type="button" aria-label="الصوت" title="الصوت">
       <svg viewBox="0 0 22 16" aria-hidden="true"><path d="M2 6h3l4-3.5v11L5 10H2z" fill="currentColor" stroke="none"/><path class="wave" d="M12 5.2a3.6 3.6 0 0 1 0 5.6"/><path class="wave" d="M14.6 2.8a7 7 0 0 1 0 10.4"/><path class="slash" d="M3 1.5 19 14.5" stroke-width="1.6"/></svg>
     </button>
-    <div class="sound-volume" title="تحكم بمستوى الصوت">
-      <label for="volumeSlider">مستوى الصوت</label>
-      <input id="volumeSlider" type="range" min="0" max="100" value="25" step="1" aria-label="مستوى الصوت">
-      <span id="volumeValue">25%</span>
+    <div class="volume-control" dir="ltr" aria-label="التحكم بمستوى الصوت">
+      <span class="volume-icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20"><path d="M2.5 7.2h3l4-3.4v12.4l-4-3.4h-3z"/><path class="volume-wave" d="M12 7a4 4 0 0 1 0 6M14.5 4.5a7.5 7.5 0 0 1 0 11"/></svg>
+      </span>
+      <input id="volumeSlider" class="volume-slider" type="range" min="0" max="100" value="65" step="1" aria-label="مستوى الصوت" aria-valuetext="65%">
+      <output id="volumeValue" class="volume-value" for="volumeSlider">65%</output>
     </div>
     <button class="tool fs" id="fsBtn" type="button" aria-label="ملء الشاشة" title="ملء الشاشة">
       <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 6.5V2h4.5M11.5 2H16v4.5M16 11.5V16h-4.5M6.5 16H2v-4.5"/></svg>
